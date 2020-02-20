@@ -1,5 +1,6 @@
 function Xcorr = fastXcorr(spike_matrix, maxLag, autocorr)
 %% by Mattia
+%% compute cross correlation for sparse binary matrices (orders of magnitude faster than matlab xcorr)
 
 % inputs:
 % spike_matrix: units * time 
@@ -10,6 +11,8 @@ function Xcorr = fastXcorr(spike_matrix, maxLag, autocorr)
 % output:
 % Xcorr: given a matrix with a, b, c ... k-1, k units, the output will be
 % in the form of aa, ab, ac ..., ak-1, ak, ba, bb, bc ... kk-1, kk
+
+%%
 
 spike_matrix(:, end + maxLag) = 0;
 num_units = size(spike_matrix, 1);

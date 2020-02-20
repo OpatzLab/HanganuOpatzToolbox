@@ -1,7 +1,9 @@
 function [Xcorr_surr99, Xcorr_surr1] = getXcorr_surrogates(spike_matrix, max_lag, jitter, nboots)
 
-%% By Mattia
+%% By Mattia 10.18
+% computes surrogate (n=nboots) spike trains with the jittering method and the xcorr relative value 
 
+% inputs:
 % - spike_matrix: neurons * spiketimes in ms
 % - max_lag: in ms (20-30 ms is a meaningful range)
 % - jitter: in ms (5-10 ms is a meaningful range), the smaller the jitter,
@@ -9,6 +11,11 @@ function [Xcorr_surr99, Xcorr_surr1] = getXcorr_surrogates(spike_matrix, max_lag
 % - nboots: the number of surrogate to calculate (200 - 5000 is a reasonable range). the higher the number, the
 %       more accurate the surrogate set, but the longer the calculation
 %       time
+
+% outputs:
+% - Xcorr_surr99: 99th percentile of correlation valuess for surrogate spike trains
+% - Xcorr_surr1: 1st percentile of correlation valuess for surrogate spike trains
+
 
 Xcorr_surr = zeros(size(spike_matrix, 1), 2 * max_lag + 1, nboots);
 autocorr = 0;

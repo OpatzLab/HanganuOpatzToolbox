@@ -5,6 +5,21 @@ function [stPR, pop_coupling, pop_coupling_1sthalf, pop_coupling_2ndhalf] ...
 % compute stPR (spike-triggered population rate) and population coupling
 % as described in Okun et al., 2015 Nature.
 
+% inputs:
+% - animal_name (string): to save/loda stuff
+% - spike_matrix (2D matrix): as computed by getSpikeMatrixKlusta
+% - max_lag (value): in ms (tipical values are 100-500-1000ms)
+% - repeat_calc (0 or 1): 0=no, 1=yes
+% - save_data (0 or 1): 0=no, 1=yes
+% - output_folder (string): main folder to save results
+
+% outputs
+% - stPR (array, num_units*(max_lag*2+1)): spike triggered population rate
+% - pop_coupling (array, num_units): population coupling 
+% - pop_coupling_1sthalf array, num_units): population coupling first half (quality control, 
+%                                           shouldn't differ from second half)
+% - pop_coupling_2ndhalf (array, num_units): population coupling second half
+
 
 if repeat_calc == 0 && ...
         exist(strcat(output_folder, animal_name, '.mat'), 'file')

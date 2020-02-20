@@ -1,8 +1,27 @@
 
+% example script on how to detect oscillations in discontinuous signal
+% using:
+% - normalized squared signal (NSS) 
+% - thresholding the baseline
+% - merging neighboring events
+% - thresholding the peaks (absolute and relative) - the absolute part is the
+%   main difference with the old version. The specific of this value has to be
+%   adjusted depending on the area that is studied (e.g. much higher thresholds
+%   for OB than PFC). The values given here work for PFC.
+% - discarding events with short duration
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+% THESE PARAMETERS ARE OPTIMIZED FOR PFC AND THIS %
+%% IS THE LEAST TESTED GROUP OF FUNCTIONS IN THE %%
+%%%%%%%%%%%%%%%%%%%%% TOOLBOX %%%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
 %% clean up and set global variables
-
 clear
-
 % variables for loading mouse stuff
 klusta = 1;
 experiments = get_experiment_redux(klusta);

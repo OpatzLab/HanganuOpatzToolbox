@@ -6,6 +6,30 @@ function [Xcorr, XcorrGH, PosPvalues, NegPvalues, num_pairs] = ...
 % requires spike matrices from which to compute the CCHs.
 % standard maxLag is 30ms
 
+% WARNING!! 
+% THIS SCRIPT REQUIRES >~10^4 SPIKES IN THE PAIR OF NEURONS TO WORK RELIABLY.
+% IT IS THUS MORE SUITABLE FOR ADULT MICE RATHER THAN NEONATAL
+
+% inputs:
+% - animal_name (string): to save/loda stuff
+% - spike_matrix (2D matrix): as computed by getSpikeMatrixKlusta
+% - autocorr (0 or 1): 0=no, 1=yes
+% - max_lag (value): in ms (tipical values range for short time-scales are 5-10ms)
+% - repeat_calc (0 or 1): 0=no, 1=yes
+% - save_data (0 or 1): 0=no, 1=yes
+% - output_folder (string): main folder to save results
+
+% outputs
+% - Xcorr (2D matrix, num_pairs*(max_lag+2+1)): cross correlation between spike trains
+% - XcorrGH (2D matrix, num_pairs*(max_lag+2+1)): convolved cross correlation 
+% - PosPvalues (2D matrix, num_pairs*(max_lag+2+1)): whether the specific pair of neurons has a positive
+%												     significant correlatation at the specific time bin
+% - NegPvalues (2D matrix, num_pairs*(max_lag+2+1)): whether the specific pair of neurons has a negative
+%												     significant correlatation at the specific time bin
+% - num_pairs (value): number of pairs
+
+%%
+
 % define the hollowed gaussian window
 HG = gausswin(101, 99 / 20); % gaussian window of 100ms with stdev of 10ms as in English et al 2017
 HG((end + 1) / 2) = HG((end + 1) / 2) * 0.4; % partially hollow the window as explained in Stark and Abeles 2009

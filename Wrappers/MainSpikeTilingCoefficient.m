@@ -1,3 +1,11 @@
+
+% This example script computes spike-tiling coefficient as described in 
+% Cutts et al., 2014 Jneuro. This parameter is a measure of pairwise correlation
+% between pairs of spike trains. Importantly for development, it is unbiased by
+% firing rate (standard correlation strongly overestimates correlations between
+% pairs of spike trains with low firing rate). The parameter "lags" controls the 
+% temporal scale at which the coefficient is computed
+
 %% load experiments and set a few variable
 
 klusta = 1;

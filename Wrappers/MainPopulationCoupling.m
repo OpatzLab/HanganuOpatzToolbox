@@ -1,3 +1,9 @@
+
+% This example script computes spike-triggered population average and population coupling
+% (measures of how single spike trains are in synchrony to the overall population firing
+% rate), as is described in Okun et al., 2015 (Nature)
+
+
 %% load experiments and set a few variable
 clearvars -except SUAtable
 

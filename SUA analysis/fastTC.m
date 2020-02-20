@@ -1,6 +1,10 @@
 function [TCA2B, TCB2A] = fastTC(spike_matrix, lags)
 %% by Mattia
 
+% this version is like the cumulative one (not single bins) but does not
+% need "sequential" values for lags, you don't give maxlag, but rather a
+% series of lags
+
 % inputs:
 % spike_matrix: units * time 
 % lags: single lags at which you want the coeff to be computed
@@ -12,9 +16,7 @@ function [TCA2B, TCB2A] = fastTC(spike_matrix, lags)
 % Tiling CoefficientB2A: as above but from B to A, not from A to B -> ba,
 % bc, bd ....
 
-% this version is like the cumulative one (not single bins) but does not
-% need "sequential" values for lags, you don't give maxlag, but rather a
-% series of lags
+%%
 
 if issparse(spike_matrix)
     spike_matrix = full(spike_matrix);

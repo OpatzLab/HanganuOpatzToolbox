@@ -13,6 +13,8 @@ function [TCA2B, TCB2A] = fasterTilingCoeff(spike_matrix, maxLag)
 % Tiling CoefficientB2A: as above but from B to A, not from A to B -> ba,
 % bc, bd ....
 
+%%
+
 if issparse(spike_matrix)
     spike_matrix = full(spike_matrix);
 end
