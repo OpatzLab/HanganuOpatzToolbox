@@ -1,8 +1,9 @@
 # Welcome to the Opatz Lab ROSA toolbox
 
 The toolbox is currently a work-in-progress. 
-I'll start with a few basic functions, but hopefully more stuff will follow. 
-In the folder "Wrappers" you can also find a few examples of "main scripts" that wrap around there functions.
+I'll start with a few basic functions, but hopefully more stuff will follow. An Example of the common excel-file used for meta-data storage is also provided.
+
+In the folder [Wrappers](https://github.com/mchini/HanganuOpatzToolbox/tree/master/Wrappers) you can also find a few examples of "main scripts" that wrap around there functions.
 Most of the scripts that are uploaded here should be commented enought to be readable/usable, but please let me know if something is unclear/should be better documented.
 If you suspect to have found a mistake, please let me know ASAP!
 
