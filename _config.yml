@@ -1,3 +1,1 @@
-baseurl: ""
-url: "https://github.com/mchini/HanganuOpatzToolbox"
-theme: jekyll-theme-leap-day
+theme: Leap day
