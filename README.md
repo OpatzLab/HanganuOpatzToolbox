@@ -17,6 +17,9 @@ The best way for you to take advantage of this repository would be to fork it!
 Here is a [tutorial](https://guides.github.com/activities/hello-world/) on GitHub.
 I would advise you to make use of [GitHub desktop](https://desktop.github.com/) in order not to have to go through the command line for everything.
 
+<br />
+<br />
+<br />
+<br />
+<br />
 THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
-
-
