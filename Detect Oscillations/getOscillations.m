@@ -13,7 +13,7 @@ function [oscillations] = getOscillations(experiment, signal, fs, freq_band, rel
 %           - experiment: as usual
 %           - signal: on which to detect oscillations -> 1 x whatever
 %           - fs: sampling frequency of signal (standard: 1000 Hz) -> 1000
-%           - freq_band : frequencies in which to detect ripples (4-20
+%           - freq_band : frequencies in which to detect oscillations (4-20
 %               Hz is standard) -> [4 20]
 %           - rel_thresholds: thresholds for oscillations beginning/end 
 %               and peak, in multiples of the stdev (standard = [2 5]);
@@ -27,7 +27,7 @@ if repeatCalc == 0 && exist(strcat(results_folder, experiment.animal_ID, '.mat')
     load(strcat(results_folder, experiment.animal_ID))
     oscillations = oscillations(channel);
 else
-    % create a vector of timestamps (will be used to indicate where ripples
+    % create a vector of timestamps (will be used to indicate where oscillations
     % are)
     timestamps = (1 : length(signal))';
     
@@ -153,8 +153,8 @@ else
         oscillations.peaks = osc(:, 2); % peaktimes
         oscillations.peakNormedPower = osc(:, 4); % amplitudes
         oscillations.stdev = stdev;
-        oscillations.durations = duration;
-        oscillations.peakAbsPower = peakAbsPower;
+        oscillations.durations = duration(duration >= durations(2)); % take only those that are long enough
+        oscillations.peakAbsPower = peakAbsPower(duration >= durations(2));
         oscillations.nnz_norm = nnz(normSignal > rel_thresholds(1)) / length(signal);
         oscillations.nnz_abs = nnz(convolvedSignal > abs_thresholds(1)) / length(signal);
     else
