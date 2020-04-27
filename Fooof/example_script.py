@@ -39,7 +39,7 @@ names_file_to_be_saved_background = ['example_background1.mat', 'example_backgro
 freq_range = [4, 50]
 peak_width_limits=[1.0, 3.0]
 max_n_peaks = 100
-plot = 1
+plot = 0
 fm = FOOOF(max_n_peaks=max_n_peaks, peak_width_limits=peak_width_limits)
 
 for name_file_spectrum, name_peaks, name_backgroud in zip(
@@ -59,8 +59,7 @@ for name_file_spectrum, name_peaks, name_backgroud in zip(
             fm.fit(freqs, np.squeeze(spectra[spectra_idx, :]), freq_range)
         else:
             fm.report(freqs, np.squeeze(spectra[spectra_idx, :]), freq_range)
-            cacca
-
+    
         peaks_param = fm.peak_params_
         peaks_params[spectra_idx, 0 : np.shape(peaks_param)[0], 0 : np.shape(peaks_param)[1]] = peaks_param
         background_params[spectra_idx, :] = fm.background_params_
