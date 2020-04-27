@@ -1,5 +1,7 @@
 # fooof-opatzlab
 
+warning! the fooof software is currently being updated. be careful because there might be some inconsistencies arising from different versions being used.
+
 this very simple script takes in a series of power spectra and fooofs them, according to https://github.com/voytekresearch/fooof
 
 it is python-based, but takes matlab files in, and spits matlab files out. Plug and play.
