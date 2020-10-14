@@ -9,7 +9,7 @@ if nargin < 1
 end
 
 Path = 'YOUR EXCEL FILE HERE';
-ExcelSheet = 'InfoandDevMil';
+ExcelSheet = 'Sheet1';
 xlRange = 'A1:DZ1000';
 [~, ~, InfoandDevMil] = xlsread(Path, ExcelSheet, xlRange); % Import recording summary from excel sheet
 

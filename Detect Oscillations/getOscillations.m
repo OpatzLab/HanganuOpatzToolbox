@@ -31,6 +31,9 @@ else
     % are)
     timestamps = (1 : length(signal))';
     
+    % convert durations from ms to actual fs
+    durations = durations / 1000 * fs;
+    
     % filter signal to oscillations freq band
     signal = ZeroPhaseFilter(signal, fs, freq_band);
     
