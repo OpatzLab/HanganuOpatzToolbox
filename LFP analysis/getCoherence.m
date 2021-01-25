@@ -62,11 +62,11 @@ end
 %% helper function that computes coherence
 function [Coherence, Coherency, freqs] = ...
     computeCoherence(signal_1, signal_2, window_length, overlap, nfft, fs)
-% calculate psd and cpsd (cross power spectral density)
-[PSD1, ~] = pwelch(signal_1, hanning(window_length), overlap, nfft, fs);
-[PSD2, ~] = pwelch(signal_2, hanning(window_length), overlap, nfft, fs);
-[CPSD, freqs] = cpsd(x1, x2, hanning(window_length), overlap, nfft, fs);
-% compute coherence and coherency
-Coherence = CPSD ./ sqrt(PSD1 .* PSD2);
-Coherency = abs(imag(Coherence));
+	% calculate psd and cpsd (cross power spectral density)
+	[PSD1, ~] = pwelch(signal_1, hanning(window_length), overlap, nfft, fs);
+	[PSD2, ~] = pwelch(signal_2, hanning(window_length), overlap, nfft, fs);
+	[CPSD, freqs] = cpsd(signal_1, signal_2, hanning(window_length), overlap, nfft, fs);
+	% compute coherence and coherency
+	Coherence = CPSD ./ sqrt(PSD1 .* PSD2);
+	Coherency = abs(imag(Coherence));
 end
