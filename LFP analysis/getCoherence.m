@@ -38,9 +38,9 @@ else
     
     % compute coherence and coherency on the two signals & on the shuffled one
     [Coherence, Coherency, freqs] = ...
-        computeCoherence(LFP1, LFP2, win_length, overlap, nfft, fs);
+        computeCoherence(LFP1, LFP2, win_length * fs, overlap * fs, nfft, fs);
     [CohShuff, CohyShuff, ~] = ...
-        computeCoherence(LFP1, signal_shuffled, win_length, overlap, nfft, fs);
+        computeCoherence(LFP1, signal_shuffled, win_length * fs, overlap * fs, nfft, fs);
     
     % put stuff in a structure
     CoherenceStuff.Coherence = Coherence;
@@ -54,7 +54,7 @@ else
         if ~ exist(folder2save, 'dir')
             mkdir(folder2save)
         end
-        save(strcat(strcat(folder2save, animal_name)), 'PSDstruct')
+        save(strcat(strcat(folder2save, animal_name)), 'CoherenceStuff')
     end
 end
 end
@@ -65,7 +65,7 @@ function [Coherence, Coherency, freqs] = ...
 	% calculate psd and cpsd (cross power spectral density)
 	[PSD1, ~] = pwelch(signal_1, hanning(window_length), overlap, nfft, fs);
 	[PSD2, ~] = pwelch(signal_2, hanning(window_length), overlap, nfft, fs);
-	[CPSD, freqs] = cpsd(signal_1, signal_2, hanning(window_length), overlap, nfft, fs);
+	[CPSD, freqs] = cpsd(signal_1, signal_2, hanning(window_length, overlap, nfft, fs);
 	% compute coherence and coherency
 	Coherence = CPSD ./ sqrt(PSD1 .* PSD2);
 	Coherency = abs(imag(Coherence));
