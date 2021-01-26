@@ -19,8 +19,8 @@ high_cut = fs / downsampling_factor / 2; % nyquist
 ExtractMode = 1; % extract from neuralynx into matlab
 
 % coherence variables
-win_length = 8; % window length for coherence (in seconds)
-overlap = 4; % window overlap for coherence (in seconds)
+win_length = 4; % window length for coherence (in seconds)
+overlap = win_length / 2; % window overlap for coherence (in seconds)
 nfft = 2^13; % number of points for power spectrum (coherence)
 
 % folders to save various results
