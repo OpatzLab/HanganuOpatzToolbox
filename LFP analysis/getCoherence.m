@@ -23,7 +23,7 @@ function CoherenceStuff = ...
 
 
 if repeatCalc == 0 && exist(strcat(folder2save, animal_name, '.mat'), 'file')
-    load(strcat(results_folder, experiment.animal_ID))
+    load(strcat(folder2save, animal_name))
 else
     % compute number of windows
     nWindows = floor(length(LFP1) / (fs * win_length));
@@ -65,7 +65,7 @@ function [Coherence, Coherency, freqs] = ...
 	% calculate psd and cpsd (cross power spectral density)
 	[PSD1, ~] = pwelch(signal_1, hanning(window_length), overlap, nfft, fs);
 	[PSD2, ~] = pwelch(signal_2, hanning(window_length), overlap, nfft, fs);
-	[CPSD, freqs] = cpsd(signal_1, signal_2, hanning(window_length, overlap, nfft, fs);
+	[CPSD, freqs] = cpsd(signal_1, signal_2, hanning(window_length), overlap, nfft, fs);
 	% compute coherence and coherency
 	Coherence = CPSD ./ sqrt(PSD1 .* PSD2);
 	Coherency = abs(imag(Coherence));
