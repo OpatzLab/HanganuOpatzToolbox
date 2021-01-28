@@ -31,9 +31,14 @@ idx2keep = find(freq > freq4slope(1) & freq < freq4slope(2));
 % take the log of both power spectrum and frequency vector
 power_spectrum = log10(power_spectrum(idx2keep));
 freq = log10(freq(idx2keep));
-fit = robustfit(freq, power_spectrum);
-slope = fit(2);
-intercept = fit(1);
+[fit, stats] = robustfit(freq, power_spectrum);
+if stats.p(2) < 0.01
+    slope = fit(2);
+    intercept = fit(1);
+else
+    slope = NaN;
+    intercept = NaN;
+end
 
 if to_plot > 0
     figure; hold on
