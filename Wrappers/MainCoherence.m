@@ -57,8 +57,8 @@ for exp_idx = 1 : size(experiments, 2)
     % scientific question and/or electrode configuration, you might want to
     % skip this part and compute coherence between each pair of channels
     % and or selected pairs of channels
-    LFP1 = median(LFP1);
-    LFP2 = median(LFP2);
+    LFP1 = nanmedian(LFP1);
+    LFP2 = nanmedian(LFP2);
     
     % compute coherence
     disp(['computing coherence for animal number ' num2str(exp_idx)])
