@@ -160,6 +160,8 @@ else
         oscillations.peakAbsPower = peakAbsPower(duration >= durations(2));
         oscillations.nnz_norm = nnz(normSignal > rel_thresholds(1)) / length(signal);
         oscillations.nnz_abs = nnz(convolvedSignal > abs_thresholds(1)) / length(signal);
+        oscillations.fs = fs;
+        oscillations.len_rec = length(signal);
     else
         oscillations.timestamps = NaN;
         oscillations.peaks = NaN; % peaktimes
