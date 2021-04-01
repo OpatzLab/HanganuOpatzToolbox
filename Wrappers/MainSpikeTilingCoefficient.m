@@ -38,8 +38,7 @@ for animal_idx = 1 : length(animals)
     % load spike matrix
     [spike_matrix, clusters] = getSpikeMatrixKlustaBaseline(animal_name, ...
         experiments, resultsKlusta, save_data, repeat_calc, output_folder_SM);
-    % compute spike-tiling coefficient
-    getTCstimSingleLags(animal_name, spike_matrix, ...
-        lags, repeat_calc, save_data, output_folder, stim_period, clusters);
+    % compute GLOBAL spike-time tiling coefficient
+    getSTTC_global(animal_name, spike_matrix, lags, repeat_calc, save_data, output_folder)
     disp(['animal ', animal_name, ' pairs ', num2str(Tcoeff.num_pairs)])    
 end
