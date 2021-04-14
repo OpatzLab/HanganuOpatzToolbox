@@ -27,7 +27,7 @@ verbose = 0;
 
 % PSD variables
 freq2analyze = logspace(-2, log10(50), 20); % frequencies to analyze with wndows of different length
-slow_freqs = [0.01 4]; % slow frequencies (0.01 is the digital filter of our recordings, unless you changed it!)
+slow_freqs = [0.1 4]; % slow frequencies (0.1 is the digital filter of our recordings, unless you changed it!)
 fast_freqs = [1 50]; % fast frequencies
 
 % folders to save various results
@@ -51,7 +51,7 @@ for exp_idx = 1 : size(experiments, 2)
     parfor (channel = 1 : 16, cores)
         file_to_load = [experiment.path, experiment.name, '\CSC', num2str(channel), '.ncs'];
         [~, signal, ~] = load_nlx_Modes(file_to_load, ExtractMode, []);
-        signal = ZeroPhaseFilter(signal, fs, [0 high_cut]);
+        signal = ZeroPhaseFilter(signal, fs, [0.1 high_cut]);
         LFP(channel, :) = signal(1 : downsampling_factor : end);
     end
     

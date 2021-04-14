@@ -54,7 +54,7 @@ for exp_idx = 1 : length(experiments)
             disp(strcat('loading channel n°', num2str(channel)));
             file_to_load = strcat(experiment.path, experiment.name, '\CSC', num2str(channel + 16), '.ncs');
             [~, signal, ~] = load_nlx_Modes(file_to_load, ExtractMode, []);
-            signal = ZeroPhaseFilter(signal, fs, [0 high_cut]);
+            signal = ZeroPhaseFilter(signal, fs, [0.1 high_cut]);
             LFP(channel, :) = signal(1 : downsampling_factor : end);
         end
         % CAR

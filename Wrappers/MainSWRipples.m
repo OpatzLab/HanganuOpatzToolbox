@@ -31,7 +31,7 @@ for n_animal = animals
         display(strcat('loading channel n°', num2str(reversal + channel)));        
         file_to_load = strcat(experiment.path, experiment.name, '\CSC', num2str(reversal + channel), '.ncs');
         [~, signal, ~] = load_nlx_Modes(file_to_load, ExtractMode, []);
-        signal = ZeroPhaseFilter(signal, fs, [0 high_cut]);
+        signal = ZeroPhaseFilter(signal, fs, [0.1 high_cut]);
         LFP(channel + 4, :) = signal(1 : downsampling_factor : end);
     end
     LFP = LFP - mean(LFP); % common average rereference
