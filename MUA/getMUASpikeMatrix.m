@@ -17,8 +17,12 @@ if repeatCalc == 0 && exist([output_folder, animal_name, '_', area, '.mat'], 'fi
 else
     load([resultsMUA, animal_name, '_', area]) % load the saved MUA stuff
     for channel = 1 : length(MUA) % loop over single units
-        spike_times = ceil(MUA(channel).timestamps / 32); % ceil to avoid having a spike time at 0. round to millisecond
-        spike_matrix(channel, spike_times) = 1; % set to 1 if a spike is present in this millisecond
+        if ~isnan(MUA(channel).timestamps)
+            spike_times = ceil(MUA(channel).timestamps / 32); % ceil to avoid having a spike time at 0. round to millisecond
+            spike_matrix(channel, spike_times) = 1; % set to 1 if a spike is present in this millisecond
+        else
+            spike_matrix(channel, 1) = NaN;
+        end
     end
     if save_data == 1
         save([output_folder, animal_name, '_', area], 'spike_matrix')
