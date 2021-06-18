@@ -51,7 +51,7 @@ else
         if ~ exist(output_folder, 'dir')
             mkdir(output_folder);
         end
-        save(strcat(output_folder, animal_name, '_', num2str(maxLag), '_', stim_period), 'Tcoeff')
+        save(strcat(output_folder, animal_name), 'Tcoeff')
     else
         disp('Tcoeff not saved!')
     end
