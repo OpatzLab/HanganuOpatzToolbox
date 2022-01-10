@@ -8,6 +8,9 @@ function [ripples] = getRipples(experiment, signal, fs, freq_band, thresholds, d
 %    Thresholds are computed as multiples of the standard deviation of
 %    the NSS.
 
+%    If no ripples were detected then empty structure (ripples=struct([]), 
+%    isempty(ripples) == True) is returned.
+
 %   inputs:
 %           - experiment: as usual
 %           - signal: on which to detect ripples (HP reversal) -> 1 x whatever
@@ -68,9 +71,11 @@ else
     firstPass = [start',stop'];
     if isempty(firstPass)
         disp('Detection by thresholding failed');
+        disp('0 events detected');
+        ripples = struct([]);
         return
     else
-        disp(['After detection by thresholding: ' num2str(length(firstPass)) ' events.']);
+        disp(['After detection by thresholding: ' num2str(size(firstPass,1)) ' events.']);
     end
     
     % Merge ripples if inter-ripple period is too short
@@ -89,15 +94,18 @@ else
     secondPass = [secondPass ; ripple];
     if isempty(secondPass)
         disp('Ripple merge failed');
-        return
+        disp('0 events detected');
+        ripples = struct([]);
+        return 
+        
     else
-        disp(['After ripple merge: ' num2str(length(secondPass)) ' events.']);
+        disp(['After ripple merge: ' num2str(size(secondPass,1)) ' events.']);
     end
     
     % Discard ripples with a peak power < highThresholdFactor (thresholds(2))
     thirdPass = [];
     peakNormalizedPower = [];
-    for i = 1 : length(secondPass)
+    for i = 1 : size(secondPass,1)
         maxValue = max(normSignal([secondPass(i, 1) : secondPass(i, 2)]));
         if maxValue > thresholds(2)
             thirdPass = [thirdPass ; secondPass(i,:)];
@@ -106,9 +114,11 @@ else
     end
     if isempty(thirdPass)
         disp('Peak thresholding failed.');
+        disp('0 events detected');
+        ripples = struct([]);
         return
     else
-        disp(['After peak thresholding: ' num2str(length(thirdPass)) ' events.']);
+        disp(['After peak thresholding: ' num2str(size(thirdPass,1)) ' events.']);
     end
     
     % Detect negative peak position for each ripple
