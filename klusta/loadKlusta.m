@@ -1,5 +1,8 @@
 function [SUAinfo, features] = loadKlusta(animal, PRMfolder, DATfolder, save_data, directory2save)
 % by Mattia 25/01
+% 30.06.2022 Irina: fixed RVP calculation, was using spikes from all clusters 
+% instead of current cluster,commented previous version. 
+% Now PRV is calculated like in phy gui.
 
 filenamekwik = strcat(PRMfolder, animal, filesep, animal, '.kwik'); % name kwik file
 filenamekwx = strcat(PRMfolder, animal, filesep, animal, '.kwx'); % name kwix file
@@ -65,7 +68,8 @@ for DATfile_idx = 1 : numel(DATfiles)
                 SUA(countSUA).channel, :));                                                          % for further analysis, i.e. distinguishing PYR and IN
             SUA(countSUA).Amplitudes = squeeze(FeatureMask(1, SUA(countSUA).channel * 3 - 1, ...
                 Clusters == WaveForms.unitIDs(idxCluster)));                                         % the second feature, on the best channel (see above). for cluster quality assesment
-            SUA(countSUA).RPV = nnz(diff(gwfparams.spikeTimes) < refractory_period);                 % refractory period violations. for cluster quality assesment
+            %SUA(countSUA).RPV = nnz(diff(gwfparams.spikeTimes) < refractory_period);                 
+            SUA(countSUA).RPV = nnz(diff(SUA(countSUA).Timestamps) < refractory_period)/nnz(SUA(countSUA).Timestamps)*100; % refractory period violations. for cluster quality assesment
             SUA(countSUA).MeanWaveFeatures = getSpikeFeatures(SUA(countSUA).Waveform);               % for SUA clustering
             features(countSUA, :) = SUA(countSUA).MeanWaveFeatures;
             SUA(countSUA).file = strip(strip(strip(strip(DATfile, 'right', 't'), ...
