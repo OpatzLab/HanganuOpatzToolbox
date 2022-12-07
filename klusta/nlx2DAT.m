@@ -63,9 +63,15 @@ for experiment = experiments(experiments_animal)
         end
     end
     if common_average_reference == 1
+        % apply common average reference
         samples(~ ismember(channels, broken_channels), :) = ...
             samples(~ ismember(channels, broken_channels), :) - ...
-            int16(mean(samples(~ ismember(channels, broken_channels), :))); % common average reference
+            int16(mean(samples(~ ismember(channels, broken_channels), :))); 
+        % add something similar to 0 (but not 0, as it disrupts clustering) to the broken channels
+        if ~ isempty(broken_channels)
+            samples(ismember(channels, broken_channels), :) = ...
+                int16(nanmedian(samples(~ ismember(channels, broken_channels), :)));
+        end
     end   
     fwrite(fidout, samples, 'int16');
     fclose(fidout);
