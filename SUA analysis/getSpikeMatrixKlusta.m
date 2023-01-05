@@ -1,10 +1,10 @@
-function spike_matrix = getSpikeMatrixKlusta(animal_name, resultsKlusta, save_data, repeatCalc, output_folder, cut)
+function [spike_matrix, clusters] = getSpikeMatrix(animal_name, resultsKlusta, save_data, repeatCalc, output_folder)
 % by Mattia 19.02
 
 % computes sparse spike_matrix starting from the output of sorted Klusta
-% file. if cut==1, cuts periods of silence (> 500 ms of no spikes across all channels)
-% to speed up further computations. Make sure to not use the cut version to e.g.
-% compute spike-tiling coefficients that go above 500ms
+% file. doesn't cuts periods of silence (> 500 ms of no spikes across all channels)
+% this is the version for the Sequencing project (only one SUA info per
+% animal)
 
 % input:  animal_name (string, also known as animal_ID)
 %         resultsKlusta (string, folder in which you have sorted SUA file)
@@ -43,42 +43,12 @@ else
                 end
             end
         end
-
-        % this part of the code eliminates parts of the matrix in which there
-        % are at least 500ms of no spiking across all channels. this can reduce
-        % quite substantially the size of the matrix (and hence calculation
-        % time) , while not affecting any Xcorr computed for intervals < 500 ms
-        if cut == 1 
-            try
-                find_nnz = find(sum(spike_matrix)); % find time bins in which at least one channel has a spike
-                intervals_nnz = find(diff(find_nnz) > 500); % find time bins that contain a spike between which there are > 500 ms
-
-                % the next loop creates a matrix (to_delete) which contains parts of
-                % the signal that are in this long intervals of spiking silence. it
-                % does not contain the whole interval but only starts 250ms after the
-                % interval and stops 250ms before. So that there are always at least
-                % 500ms of "silence" between the two spikes before/after the interval.
-
-                to_delete = [];
-                for int_idx = 1 : length(intervals_nnz)
-                    try
-                        to_delete = [to_delete find_nnz(intervals_nnz(int_idx) - 1) + 250 ...
-                            : find_nnz(intervals_nnz(int_idx)) - 250];
-                    catch
-                        to_delete = [to_delete 1 : find_nnz(intervals_nnz(int_idx)) - 250];
-                    end
-                end
-                spike_matrix(:, to_delete) = []; % delete silent periods
-            catch
-                spike_matrix = [];
-            end
-        end
-        spike_matrix = sparse(spike_matrix); % save matrix as sparse matrix
-        
+        spike_matrix = sparse(spike_matrix); % save matrix as sparse matrix        
         if save_data == 1
-            save(strcat(output_folder, animal_name, 'spike_matrix'), 'spike_matrix')
+            save(strcat(output_folder, animal_name, 'spike_matrix'), 'spike_matrix', 'clusters')
         end
     else
         spike_matrix = [];
+        clusters = [];
     end
 end
