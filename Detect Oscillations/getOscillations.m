@@ -58,10 +58,10 @@ else
     % oscillation
     if sum(thresholded) == length(thresholded)
         oscillations.timestamps = 1 : length(thresholded);
-        oscillations.peaks = NaN; % peaktimes
-        oscillations.peakNormedPower = nanmax(thresholded); % amplitudes
+        oscillations.peaks = NaN;
+        oscillations.peakNormedPower = nanmax(thresholded);
         oscillations.stdev = stdev;
-        oscillations.durations = length(thresholded); % take only those that are long enough
+        oscillations.durations = length(thresholded) * 1000;
         oscillations.peakAbsPower = max(convolvedSignal);
         oscillations.nnz_norm = NaN;
         oscillations.nnz_abs = NaN;
