@@ -1,6 +1,8 @@
 function [SUAinfo, features] = loadKlusta(animal, PRMfolder, DATfolder, save_data, directory2save)
 % by Mattia 25/01
 % 30.06.2022 Irina: fixed RVP calculation, was using spikes from all clusters 
+% 04.10.2024 Tony: fixed problem with adding last spike from the previous
+% recording into the next one
 % instead of current cluster,commented previous version. 
 % Now PRV is calculated like in phy gui.
 
@@ -33,14 +35,14 @@ for DATfile_idx = 1 : numel(DATfiles)
             gwfparams.spikeClusters = Clusters;            
         end
     elseif DATfile_idx == numel(DATfiles)
-        gwfparams.spikeTimes = TimeStamps(RecordingBreaks(DATfile_idx - 1)...
+        gwfparams.spikeTimes = TimeStamps(RecordingBreaks(DATfile_idx - 1) + 1 ...
             : end);
-        gwfparams.spikeClusters = Clusters(RecordingBreaks(DATfile_idx - 1)...
+        gwfparams.spikeClusters = Clusters(RecordingBreaks(DATfile_idx - 1) + 1 ...
             : end);
     else
-        gwfparams.spikeTimes = TimeStamps(RecordingBreaks(DATfile_idx - 1)...
+        gwfparams.spikeTimes = TimeStamps(RecordingBreaks(DATfile_idx - 1) + 1 ...
             : RecordingBreaks(DATfile_idx));
-        gwfparams.spikeClusters = Clusters(RecordingBreaks(DATfile_idx - 1)...
+        gwfparams.spikeClusters = Clusters(RecordingBreaks(DATfile_idx - 1) + 1 ...
             : RecordingBreaks(DATfile_idx));
     end
         
