@@ -63,6 +63,13 @@ else
     if length(stop) - 1 == length(start)
         stop = stop(2 : end);
     end
+    
+    if isempty(start) || isempty(stop)
+        disp('0 events detected');
+        ripples = struct([]);
+        return
+    end
+    
     % Correct special case when both first and last ripples are incomplete
     if start(1) > stop(1)
         stop(1) = [];
